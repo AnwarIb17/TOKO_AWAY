@@ -1,0 +1,13 @@
+{
+  "name": "away-fotocopy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplikasi kasir & manajemen keuangan AWAY FOTOCOPY",
+  "scripts": {
+    "dev": "tailwindcss -i ./assets/src/app.css -o ./assets/css/app.css --watch",
+    "build": "tailwindcss -i ./assets/src/app.css -o ./assets/css/app.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

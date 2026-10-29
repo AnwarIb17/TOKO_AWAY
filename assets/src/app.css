@@ -1,0 +1,273 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================================
+   BASE
+   ===================================================================== */
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink font-sans text-ivory antialiased;
+    font-feature-settings: "lnum" 1;
+    background-image:
+      radial-gradient(900px 520px at 82% -12%, rgba(198, 166, 100, 0.09), transparent 62%),
+      radial-gradient(760px 520px at 0% 104%, rgba(198, 166, 100, 0.045), transparent 62%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-gold text-ink;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-light;
+  }
+
+  input, select, textarea, button {
+    font: inherit;
+  }
+
+  select.input {
+    color-scheme: dark;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5l5-5' fill='none' stroke='%238E887D' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    -webkit-appearance: none;
+    appearance: none;
+    padding-right: 2.4rem;
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2b2822;
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a352c;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0.65) sepia(0.2) saturate(2);
+    cursor: pointer;
+  }
+}
+
+/* =====================================================================
+   COMPONENTS
+   ===================================================================== */
+@layer components {
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Typography ---------- */
+  .display {
+    @apply font-display font-light leading-[0.95] tracking-tight text-ivory;
+  }
+  .eyebrow {
+    @apply text-[10px] font-medium uppercase tracking-[0.3em] text-gold;
+  }
+  .label {
+    @apply mb-1.5 block text-[10px] font-medium uppercase tracking-[0.18em] text-muted;
+  }
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Surfaces ---------- */
+  .card {
+    @apply rounded-xl border border-line bg-panel/70;
+  }
+  .card-pad {
+    @apply rounded-xl border border-line bg-panel/70 p-5 sm:p-6;
+  }
+  .card-hover {
+    @apply transition-all duration-500 ease-lux hover:-translate-y-0.5 hover:border-gold/30 hover:bg-panel hover:shadow-panel;
+  }
+  .hairline {
+    @apply h-px w-full bg-gradient-to-r from-transparent via-line to-transparent;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-gold px-4 py-2.5 text-sm font-semibold text-ink transition-all duration-300 ease-lux hover:bg-[#d8bb80] hover:shadow-glow focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-line px-4 py-2.5 text-sm font-medium text-ivory transition-all duration-300 ease-lux hover:border-gold/40 hover:text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/30 disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-soft {
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-ivory/[0.06] px-3.5 py-2 text-xs font-medium text-ivory transition-all duration-300 hover:bg-ivory/[0.1] focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/30;
+  }
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-red-400/25 bg-red-500/10 px-3.5 py-2 text-xs font-medium text-red-300 transition-all duration-300 hover:bg-red-500/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400/40;
+  }
+  .btn-icon {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-md border border-line text-muted transition-all duration-300 hover:border-gold/40 hover:text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/30;
+  }
+
+  /* ---------- Forms ---------- */
+  .input {
+    @apply w-full rounded-md border border-line bg-ink/70 px-3.5 py-2.5 text-sm text-ivory placeholder:text-muted/50 transition-all duration-300 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/25;
+  }
+  .input-sm {
+    @apply w-full rounded-md border border-line bg-ink/70 px-3 py-2 text-xs text-ivory placeholder:text-muted/50 transition-all duration-300 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/25;
+  }
+  .input-lg {
+    @apply w-full rounded-md border border-line bg-ink/70 px-4 py-3 text-base text-ivory placeholder:text-muted/50 transition-all duration-300 focus:border-gold/60 focus:outline-none focus:ring-1 focus:ring-gold/25;
+  }
+
+  /* ---------- Badges ---------- */
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full border border-line px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-muted;
+  }
+  .badge-gold {
+    @apply border-gold/30 bg-gold/10 text-gold;
+  }
+  .badge-green {
+    @apply border-emerald-400/25 bg-emerald-400/10 text-emerald-300;
+  }
+  .badge-red {
+    @apply border-red-400/25 bg-red-400/10 text-red-300;
+  }
+  .badge-ivory {
+    @apply border-ivory/20 bg-ivory/[0.06] text-ivory/80;
+  }
+
+  /* ---------- Navigation ---------- */
+  .nav-item {
+    @apply relative flex items-center gap-3 rounded-md px-3 py-2.5 text-[13px] text-muted transition-all duration-300 ease-lux hover:bg-ivory/[0.03] hover:text-ivory;
+  }
+  .nav-item.active {
+    @apply bg-gold/[0.08] text-ivory;
+  }
+  .nav-item.active::before {
+    content: "";
+    @apply absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-gold;
+  }
+  .nav-num {
+    @apply w-4 shrink-0 text-[9px] tabular-nums tracking-widest text-muted/50 transition-colors duration-300 group-hover:text-gold/70;
+  }
+
+  /* ---------- Tables ---------- */
+  .table-lux {
+    @apply w-full border-collapse text-left text-sm;
+  }
+  .table-lux thead th {
+    @apply border-b border-line px-3 py-3 text-[10px] font-medium uppercase tracking-[0.16em] text-muted;
+  }
+  .table-lux tbody td {
+    @apply border-b border-line/60 px-3 py-3.5 align-middle;
+  }
+  .table-lux tbody tr {
+    @apply transition-colors duration-200 hover:bg-ivory/[0.02];
+  }
+  .table-lux tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* ---------- Modal ---------- */
+  .modal {
+    @apply fixed inset-0 z-[60] hidden items-center justify-center p-4;
+  }
+  .modal.open {
+    @apply flex;
+  }
+  .modal-backdrop {
+    @apply absolute inset-0 bg-black/75 backdrop-blur-sm;
+    animation: fade-in 0.3s ease both;
+  }
+  .modal-panel {
+    @apply relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-xl border border-line bg-panel p-6 shadow-panel;
+    animation: scale-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .modal-panel.wide {
+    @apply max-w-2xl;
+  }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    @apply pointer-events-auto flex items-start gap-3 rounded-lg border border-line bg-panel/95 px-4 py-3 text-sm shadow-panel backdrop-blur-md;
+    animation: fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* ---------- POS ---------- */
+  .product-card {
+    @apply relative flex cursor-pointer flex-col justify-between overflow-hidden rounded-lg border border-line bg-charcoal p-3.5 text-left transition-all duration-300 ease-lux hover:-translate-y-0.5 hover:border-gold/40 hover:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/40 active:translate-y-0;
+  }
+  .product-card .pc-price {
+    @apply font-display text-xl text-ivory;
+  }
+  .chip {
+    @apply inline-flex shrink-0 cursor-pointer items-center rounded-full border border-line px-3 py-1.5 text-[11px] font-medium tracking-wide text-muted transition-all duration-300 hover:border-gold/40 hover:text-ivory;
+  }
+  .chip.active {
+    @apply border-gold/60 bg-gold/15 text-gold;
+  }
+  .cart-row {
+    @apply flex items-start gap-3 border-b border-line/70 py-3;
+    animation: fade-in 0.25s ease both;
+  }
+  .qty-btn {
+    @apply flex h-6 w-6 items-center justify-center rounded border border-line text-xs text-muted transition-colors hover:border-gold/40 hover:text-gold;
+  }
+  .finishing-check {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1rem;
+    width: 1rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: 1px solid #3a352c;
+    border-radius: 3px;
+    background-color: #0a0a0b;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .finishing-check:hover {
+    border-color: rgba(198, 166, 100, 0.55);
+  }
+  .finishing-check:checked {
+    border-color: #c6a664;
+    background-color: #c6a664;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A0A0B' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+    background-size: 11px 11px;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* ---------- Misc ---------- */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .reveal-1 { animation-delay: 0.05s; }
+  .reveal-2 { animation-delay: 0.1s; }
+  .reveal-3 { animation-delay: 0.15s; }
+  .reveal-4 { animation-delay: 0.2s; }
+  .reveal-5 { animation-delay: 0.25s; }
+  .reveal-6 { animation-delay: 0.3s; }
+
+  .bar {
+    @apply relative overflow-hidden rounded-sm bg-gold/80 transition-all duration-500;
+    min-height: 3px;
+  }
+}

@@ -135,7 +135,7 @@ class Product
 
     public static function delete(int $id): void
     {
-        $stmt = Database::pdo()->prepare('UPDATE products SET is_active = 0 WHERE id = ?');
+        $stmt = Database::pdo()->prepare('DELETE FROM products WHERE id = ?');
         $stmt->execute([$id]);
     }
 

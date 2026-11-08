@@ -100,7 +100,7 @@ class ProductController
         $id = request_int('id');
         if ($id > 0) {
             Product::delete($id);
-            flash('success', 'Produk dinonaktifkan. Riwayat penjualan tetap tersimpan.');
+            flash('success', 'Produk dihapus. Riwayat penjualan tetap tersimpan.');
         }
         redirect('produk');
     }

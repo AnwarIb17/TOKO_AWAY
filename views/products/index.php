@@ -165,10 +165,10 @@ $lowCount = $lowCount ?? 0;
                                             data-payload="<?= e(json_encode($stockPayload, JSON_UNESCAPED_UNICODE)) ?>">
                                         <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 3v18M3 12h18"/></svg>
                                     </button>
-                                    <form method="post" action="<?= url('produk/hapus') ?>" data-confirm="Nonaktifkan produk ini? Riwayat penjualan tetap tersimpan.">
+                                    <form method="post" action="<?= url('produk/hapus') ?>" data-confirm="Hapus produk ini? Riwayat penjualan tetap tersimpan.">
                                         <?= csrf_field() ?>
                                         <input type="hidden" name="id" value="<?= (int) $product['id'] ?>">
-                                        <button type="submit" class="btn-icon hover:!border-red-400/40 hover:!text-red-300" title="Nonaktifkan">
+                                        <button type="submit" class="btn-icon hover:!border-red-400/40 hover:!text-red-300" title="Hapus">
                                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v5M14 11v5"/></svg>
                                         </button>
                                     </form>

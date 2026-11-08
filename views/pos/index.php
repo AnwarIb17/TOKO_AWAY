@@ -68,12 +68,51 @@
                     </button>
                 <?php endforeach; ?>
 
-                <?php if ($products === []): ?>
+                <?php if ($products === [] && $services === []): ?>
                     <div class="col-span-full rounded-lg border border-dashed border-line px-6 py-16 text-center">
                         <p class="font-display text-2xl">Belum ada produk</p>
                         <p class="mt-2 text-xs text-muted">Tambahkan produk terlebih dahulu di menu Produk.</p>
                     </div>
                 <?php endif; ?>
+
+                <?php
+                $printCategoryId = 0;
+                foreach ($categories as $c) {
+                    if (($c['slug'] ?? '') === 'jasa-cetak') { $printCategoryId = (int) $c['id']; break; }
+                }
+                if ($printCategoryId === 0) {
+                    foreach ($categories as $c) {
+                        if (stripos($c['name'] ?? '', 'jasa cetak') !== false) { $printCategoryId = (int) $c['id']; break; }
+                    }
+                }
+                ?>
+                <?php foreach ($services as $service): ?>
+                    <?php
+                    $spayload = [
+                        'type'       => 'print',
+                        'service_id' => (int) $service['id'],
+                        'name'       => $service['name'],
+                        'price'      => (float) $service['price_per_page'],
+                        'paper'      => $service['paper_size'],
+                        'mode'       => $service['color_mode'],
+                    ];
+                    ?>
+                    <button type="button"
+                            class="product-card"
+                            data-product="<?= e(json_encode($spayload, JSON_UNESCAPED_UNICODE)) ?>"
+                            data-type="print"
+                            data-category="<?= $printCategoryId ?>"
+                            data-search="<?= e(mb_strtolower($service['name'] . ' ' . $service['paper_size'])) ?>">
+                        <div class="flex items-start justify-between gap-2">
+                            <span class="truncate text-[9px] uppercase tracking-[0.18em] text-muted/70">Jasa Cetak</span>
+                            <span class="text-[10px] tabular-nums text-muted/60"><?= e($service['paper_size']) ?></span>
+                        </div>
+                        <div class="mt-2">
+                            <h3 class="line-clamp-2 min-h-[2.4em] text-[13px] font-medium leading-snug text-ivory/90"><?= e($service['name']) ?></h3>
+                            <p class="pc-price mt-1.5"><?= money($service['price_per_page']) ?> <span class="text-[10px] text-muted/70">/lembar</span></p>
+                        </div>
+                    </button>
+                <?php endforeach; ?>
             </div>
 
             <p class="mt-3 hidden text-[10px] uppercase tracking-[0.2em] text-muted/40 sm:block">

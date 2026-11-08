@@ -21,7 +21,8 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `sort_order`) VALUES
 (1, 'Alat Tulis',   'alat-tulis',   1),
 (2, 'Kertas',       'kertas',       2),
 (3, 'Perlengkapan', 'perlengkapan', 3),
-(4, 'Lainnya',      'lainnya',      4);
+(4, 'Lainnya',      'lainnya',      4),
+(5, 'Jasa Cetak',   'jasa-cetak',   5);
 
 INSERT INTO `products`
 (`category_id`, `sku`, `barcode`, `name`, `unit`, `cost_price`, `sell_price`, `stock`, `min_stock`) VALUES

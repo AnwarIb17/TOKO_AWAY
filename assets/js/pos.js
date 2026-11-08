@@ -19,7 +19,7 @@
   /* ----------------------------- Elements ----------------------------- */
   const searchInput = document.getElementById('pos-search');
   const productGrid = document.getElementById('product-grid');
-  const cards = Array.from(productGrid.querySelectorAll('[data-product]'));
+  let cards = Array.from(productGrid.querySelectorAll('[data-product]'));
   const cartEl = document.getElementById('cart-items');
   const cartCount = document.getElementById('cart-count');
   const clearBtn = document.getElementById('cart-clear');
@@ -432,7 +432,16 @@
   productGrid?.addEventListener('click', (event) => {
     const card = event.target.closest('[data-product]');
     if (!card || card.disabled) return;
-    addProduct(parseProduct(card));
+    
+    if (card.dataset.type === 'print') {
+      const data = parseProduct(card);
+      printForm?.reset();
+      serviceSelect.value = data.service_id;
+      window.openModal('print-modal');
+      setTimeout(refreshPrintTotal, 60);
+    } else {
+      addProduct(parseProduct(card));
+    }
   });
 
   document.querySelectorAll('.chip[data-category]').forEach((chip) => {
@@ -534,6 +543,11 @@
   });
 
   /* ----------------------------- Init ----------------------------- */
+  function refreshCards() {
+    cards = Array.from(productGrid.querySelectorAll('[data-product]'));
+  }
+  
+  refreshCards();
   renderCart();
   refreshPrintTotal();
   applyFilter();

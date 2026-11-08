@@ -37,7 +37,7 @@ class ServiceController
     public function deleteService(): void
     {
         PrintService::delete(request_int('id'));
-        flash('success', 'Layanan cetak dinonaktifkan.');
+        flash('success', 'Layanan cetak dihapus.');
         redirect('jasa');
     }
 
@@ -63,7 +63,7 @@ class ServiceController
     public function deleteFinishing(): void
     {
         PrintService::deleteFinishing(request_int('id'));
-        flash('success', 'Finishing dinonaktifkan.');
+        flash('success', 'Finishing dihapus.');
         redirect('jasa');
     }
 }

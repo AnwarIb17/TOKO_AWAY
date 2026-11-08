@@ -73,10 +73,10 @@ $paperLabel = ['A4' => 'A4', 'F4' => 'F4', 'A3' => 'A3', 'A5' => 'A5'];
                                                 data-payload="<?= e(json_encode($payload, JSON_UNESCAPED_UNICODE)) ?>">
                                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
                                         </button>
-                                        <form method="post" action="<?= url('jasa/hapus') ?>" data-confirm="Nonaktifkan layanan ini?">
+                                        <form method="post" action="<?= url('jasa/hapus') ?>" data-confirm="Hapus layanan ini?">
                                             <?= csrf_field() ?>
                                             <input type="hidden" name="id" value="<?= (int) $service['id'] ?>">
-                                            <button type="submit" class="btn-icon hover:!border-red-400/40 hover:!text-red-300" title="Nonaktifkan">
+                                            <button type="submit" class="btn-icon hover:!border-red-400/40 hover:!text-red-300" title="Hapus">
                                                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
                                             </button>
                                         </form>
@@ -132,10 +132,10 @@ $paperLabel = ['A4' => 'A4', 'F4' => 'F4', 'A3' => 'A3', 'A5' => 'A5'];
                                                 data-payload="<?= e(json_encode($payload, JSON_UNESCAPED_UNICODE)) ?>">
                                             <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
                                         </button>
-                                        <form method="post" action="<?= url('finishing/hapus') ?>" data-confirm="Nonaktifkan finishing ini?">
+                                        <form method="post" action="<?= url('finishing/hapus') ?>" data-confirm="Hapus finishing ini?">
                                             <?= csrf_field() ?>
                                             <input type="hidden" name="id" value="<?= (int) $finishing['id'] ?>">
-                                            <button type="submit" class="btn-icon hover:!border-red-400/40 hover:!text-red-300" title="Nonaktifkan">
+                                            <button type="submit" class="btn-icon hover:!border-red-400/40 hover:!text-red-300" title="Hapus">
                                                 <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
                                             </button>
                                         </form>
@@ -150,7 +150,7 @@ $paperLabel = ['A4' => 'A4', 'F4' => 'F4', 'A3' => 'A3', 'A5' => 'A5'];
     </div>
 
     <p class="mt-6 text-[11px] leading-relaxed text-muted/60">
-        Catatan: layanan yang dinonaktifkan tidak akan muncul di kasir, tetapi riwayat transaksi lama tetap tersimpan.
+        Catatan: layanan dan finishing yang dihapus tidak akan muncul di kasir, tetapi riwayat transaksi lama tetap tersimpan.
     </p>
 </section>
 

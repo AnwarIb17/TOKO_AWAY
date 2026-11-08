@@ -48,7 +48,7 @@ class PrintService
 
     public static function delete(int $id): void
     {
-        Database::pdo()->prepare('UPDATE print_services SET is_active = 0 WHERE id = ?')->execute([$id]);
+        Database::pdo()->prepare('DELETE FROM print_services WHERE id = ?')->execute([$id]);
     }
 
     public static function finishings(bool $activeOnly = false): array
@@ -86,6 +86,6 @@ class PrintService
 
     public static function deleteFinishing(int $id): void
     {
-        Database::pdo()->prepare('UPDATE finishings SET is_active = 0 WHERE id = ?')->execute([$id]);
+        Database::pdo()->prepare('DELETE FROM finishings WHERE id = ?')->execute([$id]);
     }
 }

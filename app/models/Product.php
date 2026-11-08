@@ -26,6 +26,19 @@ class Product
         return $stmt->fetch() ?: null;
     }
 
+    /**
+     * Harga jual efektif: harga grosir saat pembelian memenuhi minimum pembelian, selain itu harga satuan.
+     */
+    public static function unitPrice(array $product, int $qty): float
+    {
+        $wholesale = (float) ($product['price_wh'] ?? 0);
+        $minQty = (int) ($product['min_wh'] ?? 0);
+        if ($wholesale > 0 && $minQty > 0 && $qty >= $minQty) {
+            return $wholesale;
+        }
+        return (float) ($product['sell_price'] ?? 0);
+    }
+
     public static function lock(int $id): ?array
     {
         $stmt = Database::pdo()->prepare('SELECT * FROM products WHERE id = ? LIMIT 1 FOR UPDATE');
@@ -92,6 +105,8 @@ class Product
             'unit'        => $data['unit'] ?: 'pcs',
             'cost_price'  => $data['cost_price'],
             'sell_price'  => $data['sell_price'],
+            'price_wh'    => $data['price_wh'],
+            'min_wh'      => $data['min_wh'],
             'stock'       => $data['stock'],
             'min_stock'   => $data['min_stock'],
             'is_active'   => $data['is_active'] ? 1 : 0,
@@ -102,16 +117,16 @@ class Product
             $stmt = $pdo->prepare(
                 'UPDATE products SET category_id = :category_id, sku = :sku, barcode = :barcode,
                  name = :name, unit = :unit, cost_price = :cost_price, sell_price = :sell_price,
-                 stock = :stock, min_stock = :min_stock, is_active = :is_active WHERE id = :id'
+                 price_wh = :price_wh, min_wh = :min_wh, stock = :stock, min_stock = :min_stock, is_active = :is_active WHERE id = :id'
             );
             $stmt->execute($payload);
             return $id;
         }
 
         $stmt = $pdo->prepare(
-            'INSERT INTO products (category_id, sku, barcode, name, unit, cost_price, sell_price,
+            'INSERT INTO products (category_id, sku, barcode, name, unit, cost_price, sell_price, price_wh, min_wh,
              stock, min_stock, is_active)
-             VALUES (:category_id, :sku, :barcode, :name, :unit, :cost_price, :sell_price,
+             VALUES (:category_id, :sku, :barcode, :name, :unit, :cost_price, :sell_price, :price_wh, :min_wh,
              :stock, :min_stock, :is_active)'
         );
         $stmt->execute($payload);

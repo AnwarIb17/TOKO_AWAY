@@ -34,6 +34,19 @@ class ProductController
         $name = (string) input('name', '');
         $sku = (string) input('sku', '');
 
+        $sellPrice = request_float('sell_price');
+        $priceWh = request_float('price_wh');
+        $minWh = request_int('min_wh', 0);
+
+        if ($priceWh > $sellPrice) {
+            flash('error', 'Harga grosir tidak boleh lebih tinggi dari harga satuan.');
+            redirect('produk');
+        }
+        if ($priceWh > 0 && $minWh < 1) {
+            flash('error', 'Minimum pembelian grosir harus diisi minimal 1.');
+            redirect('produk');
+        }
+
         if ($name === '') {
             flash('error', 'Nama produk wajib diisi.');
             redirect('produk');
@@ -67,7 +80,9 @@ class ProductController
                 'name'        => $name,
                 'unit'        => (string) input('unit', 'pcs'),
                 'cost_price'  => request_float('cost_price'),
-                'sell_price'  => request_float('sell_price'),
+                'sell_price'  => $sellPrice,
+                'price_wh'    => $priceWh,
+                'min_wh'      => $minWh,
                 'stock'       => $id > 0 ? $existingStock : request_int('stock'),
                 'min_stock'   => request_int('min_stock', 5),
                 'is_active'   => isset($_POST['is_active']) ? 1 : 0,

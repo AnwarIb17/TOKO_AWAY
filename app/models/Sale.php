@@ -41,7 +41,7 @@ class Sale
                         );
                     }
 
-                    $unitPrice = (float) $product['sell_price'];
+                    $unitPrice = Product::unitPrice($product, $quantity);
                     $lineTotal = $unitPrice * $quantity;
                     $subtotal += $lineTotal;
 

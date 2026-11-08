@@ -40,6 +40,11 @@ INSERT INTO `products`
 (3, 'PLG-004', '8990000002046', 'Lem Kertas', 'pcs', 4000, 6000, 18, 5),
 (4, 'LN-001',  '8990000003012', 'Amplop Coklat', 'pcs', 500, 1000, 100, 20);
 
+-- Harga grosir contoh: beberapa produk dengan pembelian minimum
+UPDATE `products` SET `price_wh` = 3000, `min_wh` = 12 WHERE `sku` = 'ATK-001';
+UPDATE `products` SET `price_wh` = 50000, `min_wh` = 4  WHERE `sku` = 'KRT-001';
+UPDATE `products` SET `price_wh` = 52500, `min_wh` = 4  WHERE `sku` = 'KRT-002';
+
 INSERT INTO `print_services` (`name`, `paper_size`, `color_mode`, `price_per_page`) VALUES
 ('Fotokopi A4 Hitam Putih', 'A4', 'bw',    300),
 ('Fotokopi F4 Hitam Putih', 'F4', 'bw',    350),

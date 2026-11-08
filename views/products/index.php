@@ -71,6 +71,7 @@ $lowCount = $lowCount ?? 0;
                         <th>Kategori</th>
                         <th class="text-right">Harga Beli</th>
                         <th class="text-right">Harga Jual</th>
+                        <th class="text-right">Harga Grosir</th>
                         <th class="text-center">Stok</th>
                         <th class="text-right">Aksi</th>
                     </tr>
@@ -78,7 +79,7 @@ $lowCount = $lowCount ?? 0;
                 <tbody>
                     <?php if ($products === []): ?>
                         <tr>
-                            <td colspan="6" class="py-16 text-center">
+                            <td colspan="7" class="py-16 text-center">
                                 <p class="font-display text-2xl text-ivory/70">Belum ada produk</p>
                                 <p class="mt-2 text-xs text-muted">Tambahkan produk pertama Anda untuk mulai berjualan.</p>
                             </td>
@@ -108,6 +109,8 @@ $lowCount = $lowCount ?? 0;
                             'unit'        => $product['unit'],
                             'cost_price'  => (float) $product['cost_price'],
                             'sell_price'  => (float) $product['sell_price'],
+                            'price_wh'    => (float) ($product['price_wh'] ?? 0),
+                            'min_wh'      => (int) ($product['min_wh'] ?? 0),
                             'stock'       => $stock,
                             'min_stock'   => $min,
                             'is_active'   => (int) $product['is_active'],
@@ -128,6 +131,16 @@ $lowCount = $lowCount ?? 0;
                             <td class="text-xs text-muted"><?= e($product['category_name'] ?? '—') ?></td>
                             <td class="text-right text-xs tabular-nums text-muted"><?= money($product['cost_price']) ?></td>
                             <td class="text-right text-xs tabular-nums text-ivory"><?= money($product['sell_price']) ?></td>
+                            <td class="text-right text-xs tabular-nums text-muted">
+                                <?php if ((float) ($product['price_wh'] ?? 0) > 0): ?>
+                                    <?= money($product['price_wh']) ?>
+                                    <?php if ((int) ($product['min_wh'] ?? 0) > 0): ?>
+                                        <div class="text-[9px] uppercase tracking-wider">min <?= (int) $product['min_wh'] ?></div>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    —
+                                <?php endif; ?>
+                            </td>
                             <td class="text-center">
                                 <div class="flex flex-col items-center gap-1">
                                     <span class="text-[13px] tabular-nums"><?= $stock ?> <span class="text-[10px] text-muted"><?= e($product['unit']) ?></span></span>
@@ -227,6 +240,18 @@ $lowCount = $lowCount ?? 0;
                 <div>
                     <label class="label" for="p-sell">Harga jual</label>
                     <input id="p-sell" name="sell_price" type="number" min="0" step="1" class="input tnum" value="0" required>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="label" for="p-wh">Harga grosir</label>
+                    <input id="p-wh" name="price_wh" type="number" min="0" step="1" class="input tnum" value="0">
+                </div>
+                <div>
+                    <label class="label" for="p-minwh">Min. pembelian grosir</label>
+                    <input id="p-minwh" name="min_wh" type="number" min="0" step="1" class="input tnum" value="0">
+                    <p class="mt-1 text-[10px] leading-relaxed text-muted/70">Harga grosir berlaku bila pembelian ≥ jumlah ini.</p>
                 </div>
             </div>
 

@@ -76,6 +76,19 @@
     }
   }
 
+  function applyTier(item) {
+    const wholesale = Number(item.price_wh || 0);
+    const minQty = Number(item.min_wh || 0);
+    if (wholesale > 0 && minQty > 0 && item.qty >= minQty) {
+      item.unit_price = wholesale;
+      item.is_grosir = true;
+    } else {
+      item.unit_price = Number(item.sell_price) || item.unit_price;
+      item.is_grosir = false;
+    }
+    return item.unit_price;
+  }
+
   /* ----------------------------- Cart ----------------------------- */
   function addProduct(product) {
     if (!product.id) return;
@@ -87,6 +100,7 @@
         return;
       }
       existing.qty += 1;
+      applyTier(existing);
     } else {
       if (Number(product.stock) <= 0) {
         notify(`Stok "${product.name}" habis.`);
@@ -98,10 +112,15 @@
         id: Number(product.id),
         name: product.name,
         unit: product.unit || 'pcs',
+        sell_price: Number(product.price) || 0,
+        price_wh: Number(product.price_wh) || 0,
+        min_wh: Number(product.min_wh) || 0,
         unit_price: Number(product.price) || 0,
         stock: Number(product.stock) || 0,
         qty: 1,
+        is_grosir: false,
       });
+      applyTier(state.items[state.items.length - 1]);
     }
 
     clearMessage();
@@ -131,7 +150,9 @@
 
       const metaLine = isPrint
         ? `${item.pages} hlm × ${item.copies} copy${item.finishing_names.length ? ' · ' + esc(item.finishing_names.join(', ')) : ''}`
-        : `${rp(item.unit_price)} / ${esc(item.unit)}`;
+        : item.is_grosir
+          ? `${rp(item.unit_price)} / ${esc(item.unit)} <span class="text-gold/90">GROSIR</span>`
+          : `${rp(item.unit_price)} / ${esc(item.unit)}`;
 
       const qtyControls = isPrint
         ? `<span class="badge badge-ivory">${nf.format(item.qty)} lembar</span>`
@@ -233,9 +254,14 @@
         return;
       }
       item.qty += 1;
+      if (item.type === 'product') applyTier(item);
     } else if (action === 'dec') {
       item.qty -= 1;
-      if (item.qty <= 0) state.items.splice(index, 1);
+      if (item.qty <= 0) {
+        state.items.splice(index, 1);
+      } else if (item.type === 'product') {
+        applyTier(item);
+      }
     }
 
     clearMessage();

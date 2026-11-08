@@ -60,6 +60,8 @@ CREATE TABLE `products` (
     `unit`        VARCHAR(20)  NOT NULL DEFAULT 'pcs',
     `cost_price`  DECIMAL(12,2) NOT NULL DEFAULT 0,
     `sell_price`  DECIMAL(12,2) NOT NULL DEFAULT 0,
+    `price_wh`    DECIMAL(12,2) NULL AFTER `sell_price`,
+    `min_wh`      INT          NOT NULL DEFAULT 0 AFTER `price_wh`,
     `stock`       INT NOT NULL DEFAULT 0,
     `min_stock`   INT NOT NULL DEFAULT 5,
     `is_active`   TINYINT(1) NOT NULL DEFAULT 1,

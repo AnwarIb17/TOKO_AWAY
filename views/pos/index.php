@@ -38,6 +38,8 @@
                         'id'       => (int) $product['id'],
                         'name'     => $product['name'],
                         'price'    => (float) $product['sell_price'],
+                        'price_wh' => (float) ($product['price_wh'] ?? 0),
+                        'min_wh'   => (int) ($product['min_wh'] ?? 0),
                         'stock'    => (int) $product['stock'],
                         'unit'     => $product['unit'],
                         'sku'      => $product['sku'],
